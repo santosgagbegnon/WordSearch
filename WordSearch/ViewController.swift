@@ -36,22 +36,22 @@ class ViewController: UIViewController {
         wordSearchGrid.layer.addSublayer(drawLayer)
     }
     
-    
-
-
 }
 
 extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 100
     }
-        
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? SquareCell else{
             fatalError("Could not create proper cell")
         }
+        cell.letterLabel.text = String(indexPath.row)
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Ok -")
     }
    
 }

@@ -11,5 +11,7 @@ import UIKit
 class SquareCell: UICollectionViewCell {
     @IBOutlet weak var letterLabel: UILabel!
     
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
 }
