@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B1E54E32287CA1B00CCC35E /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1E54E22287CA1B00CCC35E /* String+Ext.swift */; };
 		6B3E2C6E227F3E440076FDEE /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */; };
 		6B81F2C0227E00510076D77F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B81F2BF227E00510076D77F /* AppDelegate.swift */; };
 		6B81F2C2227E00510076D77F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B81F2C1227E00510076D77F /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B1E54E22287CA1B00CCC35E /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
 		6B81F2BC227E00510076D77F /* WordSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B81F2BF227E00510076D77F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				6B81F2BF227E00510076D77F /* AppDelegate.swift */,
 				6B81F2C1227E00510076D77F /* ViewController.swift */,
 				6B81F2C3227E00510076D77F /* Main.storyboard */,
+				6B1E54E22287CA1B00CCC35E /* String+Ext.swift */,
 				6B81F2D4227E05F20076D77F /* SquareCell.swift */,
 				6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */,
 				6B81F2C9227E00530076D77F /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B1E54E32287CA1B00CCC35E /* String+Ext.swift in Sources */,
 				6B81F2D5227E05F20076D77F /* SquareCell.swift in Sources */,
 				6B81F2C2227E00510076D77F /* ViewController.swift in Sources */,
 				6B3E2C6E227F3E440076FDEE /* WordSearchView.swift in Sources */,

@@ -10,21 +10,22 @@ import UIKit
 
 class WordSearchView: UICollectionView, UICollectionViewDelegate {
     private var highlightedIndexPaths = [IndexPath]()
-    var startingPoint : CGPoint!
-    var endPoint : CGPoint!
-    var drawPath : UIBezierPath!
+    private var startingPoint : CGPoint!
+    private var endPoint : CGPoint!
+    private var drawPath : UIBezierPath!
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-//        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        self.delegate = self
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-   }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         guard let touch = touches.first else {
@@ -33,29 +34,14 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         startingPoint = touch.location(in: self)
         guard let indexPath = self.indexPathForItem(at: startingPoint),
             let targetCell = self.cellForItem(at: indexPath) as? SquareCell else {
-            print("nothing found")
             return
         }
         if (!highlightedIndexPaths.contains(indexPath)){
             highlightedIndexPaths.append(indexPath)
         }
         startingPoint = targetCell.center
-        //print("You touched: \(targetCell.letterLabel.text)")
-       
-        
-        print("touches began")
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("did select")
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SquareCell else{
-            print("not found")
-            return
-        }
-        print("Touched: \(cell.letterLabel.text)")
-    }
-    
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
@@ -70,28 +56,31 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
 
         let opposite = endY - startY
         let adjacent = endX - startX
+        let originalAngle = Double(atan2(opposite, adjacent))
         
-        let angle = Double(atan2(opposite, adjacent))
-        let aid = (round(radian: angle)) * Double.pi/180
+        let roundedAngle = (round(radian: originalAngle)) * Double.pi/180
         
-        if (abs(aid * 180/Double.pi) == 90) {
+        //Checks to see if the rounded angle is 90 degrees
+        if (abs(roundedAngle * 180/Double.pi) == 90) {
             endPoint = CGPoint(x: startingPoint.x, y: touch.location(in: self).y)
         }
         else{
-            let newY = snapY(theta: aid, x1: Double(startX), x2: Double(endX), y1: Double(startY))
+            let newY = snapY(theta: roundedAngle, x1: Double(startX), x2: Double(endX), y1: Double(startY))
             endPoint = CGPoint(x: endPoint.x, y: CGFloat(newY))
         }
         
+        //Get the indexPath of the cell touched at the location of the tap
         guard let indexPath = self.indexPathForItem(at: endPoint),
-            let targetCell = self.cellForItem(at: indexPath) as? SquareCell else {
-                print("nothing found")
+            let _ = self.cellForItem(at: indexPath) as? SquareCell else {
                 return
         }
+        
+        //Adds the cell's indexPath to the array of hihglighted index paths
         if (!highlightedIndexPaths.contains(indexPath)){
             highlightedIndexPaths.append(indexPath)
         }
-        //print("You touched: \(targetCell.letterLabel.text)")
         
+        //Create highlighting line path
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
         drawPath.addLine(to: endPoint)
@@ -99,21 +88,20 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         drawPath.lineJoinStyle = .round
         drawPath.close()
         
+        //Create layer for highlighting path
         let drawLayer = CAShapeLayer()
         drawLayer.name = "DrawLayer"
-        drawLayer.frame = self.bounds
         drawLayer.fillColor = UIColor.red.cgColor
         drawLayer.opacity = 0.8
         drawLayer.strokeColor = UIColor.red.cgColor
         drawLayer.lineWidth = 20
-        drawLayer.cornerRadius = 30
         drawLayer.path = drawPath.cgPath
-        //print("CollectionView - \(self.delegate)")
-
+        
+        //Add and update view
         self.layer.addSublayer(drawLayer)
         self.setNeedsLayout()
-        
     }
+    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         var word = ""
@@ -127,6 +115,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         clearCanvas()
     }
     
+    /// Clears the highlighting path on the word search
     private func clearCanvas(){
         if(drawPath == nil){return}
         drawPath.removeAllPoints()
@@ -140,14 +129,27 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             }
         }
         self.layer.sublayers = newLayers
-        
         self.setNeedsLayout()
     }
     
+    /// Calculates the approriate Y using the Tan trig function
+    ///
+    /// - Parameters:
+    ///   - theta: Angle
+    ///   - x1: X value of point 1
+    ///   - x2: X value of point 2
+    ///   - y1: Y value of point 1
+    /// - Returns: Y value of point 2
     private func snapY(theta: Double, x1: Double, x2 :Double, y1: Double) -> Double{
         return tan(theta)*(x2-x1) + y1
     }
+    
+    /// Rounds a radian to the nearest value in the set {-180, -135, -90, -45, 0, 45, 90, 135, 180}
+    ///
+    /// - Parameter radian: value in radians to round
+    /// - Returns: rounded radian value
     private func round(radian: Double) -> Double{
+        //Convert to degrees for readability
         let degree = Double(radian * 180 / .pi)
         if (degree >= 157.5){
             return 180
@@ -177,5 +179,4 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             return 180
         }
     }
-    
 }

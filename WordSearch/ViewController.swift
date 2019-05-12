@@ -47,7 +47,7 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? SquareCell else{
             fatalError("Could not create proper cell")
         }
-        cell.letterLabel.text = String(indexPath.row)
+        cell.letterLabel.text = String.randomLetter()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
