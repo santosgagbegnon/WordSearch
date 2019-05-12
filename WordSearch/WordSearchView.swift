@@ -166,63 +166,12 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     }
     
     
-    /// Calculates and returns the proper starting position of the highlighting line.
-    /// This is calculated using the first cell to highlight and the angle it will be highlighted at
+    /// Calculates the starting and ending points of the highlight path
+    ///
     /// - Parameters:
-    ///   - cell: Starting cell for the highlight
-    ///   - angle: Angle the highlight goes
-    /// - Returns: a starting point for the highlight
-    private func calculateStartPoint(indexPath: IndexPath, angle: Double) -> CGPoint{
-        guard let cell = self.cellForItem(at: indexPath) else {
-            return CGPoint(x: 0, y: 0)
-        }
-        //Convert to degrees for readability
-        let degree = Double(angle * 180 / .pi)
-        var point = cell.center
-        if (degree >= 157.5){
-            //180 deg
-            //Start at the right
-           point.x = cell.frame.maxX
-        }
-        else if (degree >= 112.5){
-            //135 deg
-            //Start at the top right corner
-            point = CGPoint(x: cell.frame.maxX, y: cell.frame.maxY)
-        }
-        else if (degree >= 67.5){
-            //90 deg
-            //Start at the top
-            point.y = cell.frame.minY
-        }
-        else if (degree >= 22.5){
-            //45 deg
-        }
-        else if (degree >= -22.5){
-            //0 deg
-            //Start on the left
-            point.x = cell.frame.minX
-
-        }
-        else if (degree >= -67.5){
-            //-45 deg
-        }
-        else if (degree >= -112.5){
-            print("-90")
-            //-90 deg
-            //Start at the bottom
-            point.y = cell.frame.maxY
-        }
-        else if (degree >= -157.5){
-            //-135 deg
-        }
-        else{
-            //180 deg
-            //Start at the right
-            point.x = cell.frame.maxX
-        }
-        return point
-    }
-    
+    ///   - firstIndexPath: The index path of the first cell to highlight
+    ///   - secondIndexPath: The index path of the last cell to highlight
+    /// - Returns: Starting and ending points for the highlighting path
     private func calculateLinePath(firstIndexPath : IndexPath, secondIndexPath: IndexPath) -> (startingPoint: CGPoint, endingPoint: CGPoint){
         var linePath = (startingPoint: CGPoint(x: 0, y: 0), endingPoint: CGPoint(x: 0, y: 0))
        
@@ -240,13 +189,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             secondPoints = secondCell.midPoints
         }
        
-        
-        print("IndexPath1: \(firstIndexPath.row), \(firstIndexPath.section)")
-        print("IndexPath2: \(secondIndexPath.row), \(secondIndexPath.section)")
-
         var furthestDistance : Double = 0
        
-        
         for point1 in firstPoints {
             for point2 in secondPoints {
                 let distance = point1.distance(from: point2)
