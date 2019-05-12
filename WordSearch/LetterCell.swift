@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SquareCell: UICollectionViewCell {
+class LetterCell: UICollectionViewCell {
     @IBOutlet weak var letterLabel: UILabel!
     
     override func layoutSubviews() {

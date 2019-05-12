@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     @IBOutlet weak var wordSearchGrid: WordSearchView!
     override func viewDidLoad() {
@@ -38,13 +38,13 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension GameViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 100
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? SquareCell else{
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? LetterCell else{
             fatalError("Could not create proper cell")
         }
         cell.letterLabel.text = String.randomLetter()

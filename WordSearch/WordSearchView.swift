@@ -33,7 +33,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         startingPoint = touch.location(in: self)
         guard let indexPath = self.indexPathForItem(at: startingPoint),
-            let targetCell = self.cellForItem(at: indexPath) as? SquareCell else {
+            let targetCell = self.cellForItem(at: indexPath) as? LetterCell else {
             return
         }
         if (!highlightedIndexPaths.contains(indexPath)){
@@ -71,7 +71,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         //Get the indexPath of the cell touched at the location of the tap
         guard let indexPath = self.indexPathForItem(at: endPoint),
-            let _ = self.cellForItem(at: indexPath) as? SquareCell else {
+            let _ = self.cellForItem(at: indexPath) as? LetterCell else {
                 return
         }
         
@@ -106,7 +106,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         var word = ""
         for indexPath in highlightedIndexPaths {
-            if let cell = self.cellForItem(at: indexPath) as? SquareCell {
+            if let cell = self.cellForItem(at: indexPath) as? LetterCell {
                 word += cell.letterLabel.text ?? ""
             }
         }
