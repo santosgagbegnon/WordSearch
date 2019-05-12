@@ -17,6 +17,8 @@
 		6B81F2CA227E00530076D77F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B81F2C9227E00530076D77F /* Assets.xcassets */; };
 		6B81F2CD227E00530076D77F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B81F2CB227E00530076D77F /* LaunchScreen.storyboard */; };
 		6B81F2D5227E05F20076D77F /* LetterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B81F2D4227E05F20076D77F /* LetterCell.swift */; };
+		6B89AE802288A73300AEE3DF /* UICollectionViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */; };
+		6B89AE822288A7AA00AEE3DF /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		6B81F2CC227E00530076D77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B81F2CE227E00530076D77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B81F2D4227E05F20076D77F /* LetterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterCell.swift; sourceTree = "<group>"; };
+		6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Ext.swift"; sourceTree = "<group>"; };
+		6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,8 @@
 				6B1E54E22287CA1B00CCC35E /* String+Ext.swift */,
 				6B81F2D4227E05F20076D77F /* LetterCell.swift */,
 				6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */,
+				6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */,
+				6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */,
 				6B1E54E42287D16200CCC35E /* Double+Ext.swift */,
 				6B81F2C9227E00530076D77F /* Assets.xcassets */,
 				6B81F2CB227E00530076D77F /* LaunchScreen.storyboard */,
@@ -152,10 +158,12 @@
 			files = (
 				6B1E54E32287CA1B00CCC35E /* String+Ext.swift in Sources */,
 				6B81F2D5227E05F20076D77F /* LetterCell.swift in Sources */,
+				6B89AE802288A73300AEE3DF /* UICollectionViewCell+Ext.swift in Sources */,
 				6B81F2C2227E00510076D77F /* GameViewController.swift in Sources */,
 				6B3E2C6E227F3E440076FDEE /* WordSearchView.swift in Sources */,
 				6B1E54E52287D16200CCC35E /* Double+Ext.swift in Sources */,
 				6B81F2C8227E00510076D77F /* WordSearch.xcdatamodeld in Sources */,
+				6B89AE822288A7AA00AEE3DF /* CGPoint+Ext.swift in Sources */,
 				6B81F2C0227E00510076D77F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SMEHD3WMB9;
 				INFOPLIST_FILE = WordSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,6 +332,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SMEHD3WMB9;
 				INFOPLIST_FILE = WordSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,7 +10,7 @@ import Foundation
 extension Double {
     /// Rounds double to the nearest value in the set {-180, -135, -90, -45, 0, 45, 90, 135, 180}
     ///
-    /// - Returns: rounded radian value
+    /// - Returns: rounded degree value
     func round() -> Double{
         //Convert to degrees for readability
         let degree = Double(self * 180 / .pi)

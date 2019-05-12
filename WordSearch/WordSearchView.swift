@@ -71,16 +71,26 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         //Get the indexPath of the cell touched at the location of the tap
         guard let indexPath = self.indexPathForItem(at: endPoint),
-            let _ = self.cellForItem(at: indexPath) as? LetterCell else {
+            let targetCell = self.cellForItem(at: indexPath) as? LetterCell else {
                 return
         }
+        
+      //  startingPoint = calculateStartPoint(indexPath: highlightedIndexPaths[0], angle: roundedAngle)
         
         //Adds the cell's indexPath to the array of hihglighted index paths
         if (!highlightedIndexPaths.contains(indexPath)){
             highlightedIndexPaths.append(indexPath)
         }
-        
+        let points = calculateLinePath(firstIndexPath: highlightedIndexPaths[0], secondIndexPath: highlightedIndexPaths[highlightedIndexPaths.count-1])
+       
+        startingPoint = points.startingPoint
+        if(highlightedIndexPaths.count == 1){
+            endPoint = points.endingPoint
+
+        }
+//
         //Create highlighting line path
+        
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
         drawPath.addLine(to: endPoint)
@@ -100,6 +110,17 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         //Add and update view
         self.layer.addSublayer(drawLayer)
         self.setNeedsLayout()
+        
+        for indexPath in highlightedIndexPaths {
+            if let cell = self.cellForItem(at: indexPath) as? LetterCell{
+                if (!drawPath.contains(cell.center)){
+                    if let index = highlightedIndexPaths.firstIndex(of: indexPath), index != 0{
+                        highlightedIndexPaths.remove(at: index)
+                    }
+                }
+               
+            }
+        }
     }
     
     
@@ -142,5 +163,100 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     /// - Returns: Y value of point 2
     private func snapY(theta: Double, x1: Double, x2 :Double, y1: Double) -> Double{
         return tan(theta)*(x2-x1) + y1
+    }
+    
+    
+    /// Calculates and returns the proper starting position of the highlighting line.
+    /// This is calculated using the first cell to highlight and the angle it will be highlighted at
+    /// - Parameters:
+    ///   - cell: Starting cell for the highlight
+    ///   - angle: Angle the highlight goes
+    /// - Returns: a starting point for the highlight
+    private func calculateStartPoint(indexPath: IndexPath, angle: Double) -> CGPoint{
+        guard let cell = self.cellForItem(at: indexPath) else {
+            return CGPoint(x: 0, y: 0)
+        }
+        //Convert to degrees for readability
+        let degree = Double(angle * 180 / .pi)
+        var point = cell.center
+        if (degree >= 157.5){
+            //180 deg
+            //Start at the right
+           point.x = cell.frame.maxX
+        }
+        else if (degree >= 112.5){
+            //135 deg
+            //Start at the top right corner
+            point = CGPoint(x: cell.frame.maxX, y: cell.frame.maxY)
+        }
+        else if (degree >= 67.5){
+            //90 deg
+            //Start at the top
+            point.y = cell.frame.minY
+        }
+        else if (degree >= 22.5){
+            //45 deg
+        }
+        else if (degree >= -22.5){
+            //0 deg
+            //Start on the left
+            point.x = cell.frame.minX
+
+        }
+        else if (degree >= -67.5){
+            //-45 deg
+        }
+        else if (degree >= -112.5){
+            print("-90")
+            //-90 deg
+            //Start at the bottom
+            point.y = cell.frame.maxY
+        }
+        else if (degree >= -157.5){
+            //-135 deg
+        }
+        else{
+            //180 deg
+            //Start at the right
+            point.x = cell.frame.maxX
+        }
+        return point
+    }
+    
+    private func calculateLinePath(firstIndexPath : IndexPath, secondIndexPath: IndexPath) -> (startingPoint: CGPoint, endingPoint: CGPoint){
+        var linePath = (startingPoint: CGPoint(x: 0, y: 0), endingPoint: CGPoint(x: 0, y: 0))
+       
+        guard let firstCell = self.cellForItem(at: firstIndexPath),
+            let secondCell = self.cellForItem(at: secondIndexPath) else{
+                return linePath
+        }
+        //Default: assume line is diagonal
+        var firstPoints = firstCell.cornerPoints
+        var secondPoints = secondCell.cornerPoints
+        
+        if (firstIndexPath.row == secondIndexPath.row || firstIndexPath.section == secondIndexPath.section){
+            //Not a diagonal line, change points
+            firstPoints = firstCell.midPoints
+            secondPoints = secondCell.midPoints
+        }
+       
+        
+        print("IndexPath1: \(firstIndexPath.row), \(firstIndexPath.section)")
+        print("IndexPath2: \(secondIndexPath.row), \(secondIndexPath.section)")
+
+        var furthestDistance : Double = 0
+       
+        
+        for point1 in firstPoints {
+            for point2 in secondPoints {
+                let distance = point1.distance(from: point2)
+                if (distance >= furthestDistance){
+                    furthestDistance = distance
+                    linePath.startingPoint = point1
+                    linePath.endingPoint = point2
+                }
+            }
+        }
+        return linePath
     }
 }
