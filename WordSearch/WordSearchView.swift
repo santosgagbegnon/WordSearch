@@ -58,7 +58,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         let adjacent = endX - startX
         let originalAngle = Double(atan2(opposite, adjacent))
         
-        let roundedAngle = (round(radian: originalAngle)) * Double.pi/180
+        let roundedAngle = originalAngle.round() * Double.pi/180
         
         //Checks to see if the rounded angle is 90 degrees
         if (abs(roundedAngle * 180/Double.pi) == 90) {
@@ -142,41 +142,5 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     /// - Returns: Y value of point 2
     private func snapY(theta: Double, x1: Double, x2 :Double, y1: Double) -> Double{
         return tan(theta)*(x2-x1) + y1
-    }
-    
-    /// Rounds a radian to the nearest value in the set {-180, -135, -90, -45, 0, 45, 90, 135, 180}
-    ///
-    /// - Parameter radian: value in radians to round
-    /// - Returns: rounded radian value
-    private func round(radian: Double) -> Double{
-        //Convert to degrees for readability
-        let degree = Double(radian * 180 / .pi)
-        if (degree >= 157.5){
-            return 180
-        }
-        else if (degree >= 112.5){
-            return 135
-        }
-        else if (degree >= 67.5){
-            return 90
-        }
-        else if (degree >= 22.5){
-            return 45
-        }
-        else if (degree >= -22.5){
-            return 0
-        }
-        else if (degree >= -67.5){
-            return -45
-        }
-        else if (degree >= -112.5){
-            return -90
-        }
-        else if (degree >= -157.5){
-            return -135
-        }
-        else{
-            return 180
-        }
     }
 }
