@@ -13,6 +13,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var wordSearchGrid: WordSearchView!
     override func viewDidLoad() {
         super.viewDidLoad()
+       // wordSearchGrid.flow
         // Do any additional setup after loading the view.
 //         drawaLine()
     }
@@ -40,7 +41,7 @@ class GameViewController: UIViewController {
     
 }
 
-extension GameViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension GameViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 10
     }
@@ -57,6 +58,12 @@ extension GameViewController : UICollectionViewDataSource, UICollectionViewDeleg
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Ok -")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = wordSearchGrid.frame.height/10
+        let width = height
+        return CGSize(width: width, height: height)
     }
    
 }

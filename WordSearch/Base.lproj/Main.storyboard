@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,8 +25,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="404"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G57-8T-55o" customClass="WordSearchView" customModule="WordSearch" customModuleProvider="target">
-                                        <rect key="frame" x="52" y="42" width="310" height="310"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="52" y="47" width="310" height="310"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="G57-8T-55o" secondAttribute="height" multiplier="1:1" id="xyp-YF-6Ow"/>
                                         </constraints>
@@ -72,19 +70,29 @@
                                     </collectionView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="G57-8T-55o" secondAttribute="bottom" constant="52" id="9KI-R1-DMs"/>
-                                    <constraint firstAttribute="trailing" secondItem="G57-8T-55o" secondAttribute="trailing" constant="52" id="asa-EH-ORx"/>
-                                    <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="52" id="zO1-lQ-3bz"/>
+                                    <constraint firstItem="G57-8T-55o" firstAttribute="centerX" secondItem="3w7-OR-ysp" secondAttribute="centerX" id="7Ld-yp-6QA"/>
+                                    <constraint firstItem="G57-8T-55o" firstAttribute="centerY" secondItem="3w7-OR-ysp" secondAttribute="centerY" id="RR9-ab-Qdw"/>
+                                    <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="52" id="hbo-Y6-sY8"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-24-Teb">
+                                <rect key="frame" x="140" y="425" width="134" height="134"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="oZU-24-Teb" secondAttribute="height" multiplier="1:1" id="yuV-9A-Lve"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="XUo-Ax-jhW" firstAttribute="top" secondItem="oZU-24-Teb" secondAttribute="centerY" id="1lQ-DO-aOi"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5lb-H7-aii"/>
                             <constraint firstAttribute="bottom" secondItem="XUo-Ax-jhW" secondAttribute="bottom" id="6ff-sP-C5v"/>
+                            <constraint firstItem="oZU-24-Teb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="140" id="9TA-X3-aNT"/>
                             <constraint firstItem="3w7-OR-ysp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Etb-Pd-dx9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3w7-OR-ysp" secondAttribute="trailing" id="G7f-1a-MKb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XUo-Ax-jhW" secondAttribute="trailing" id="WUg-fT-ybJ"/>
+                            <constraint firstItem="oZU-24-Teb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aKb-um-yQb"/>
                             <constraint firstItem="3w7-OR-ysp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bPG-ik-w7Y"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="top" secondItem="3w7-OR-ysp" secondAttribute="bottom" id="kYp-iq-bgd"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="height" secondItem="3w7-OR-ysp" secondAttribute="height" id="pek-0c-TqU"/>
