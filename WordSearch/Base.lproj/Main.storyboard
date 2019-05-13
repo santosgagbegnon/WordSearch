@@ -18,14 +18,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUo-Ax-jhW">
-                                <rect key="frame" x="0.0" y="492" width="414" height="404"/>
+                                <rect key="frame" x="0.0" y="549.5" width="414" height="346.5"/>
                                 <color key="backgroundColor" red="0.16628694529999999" green="0.2007018397" blue="0.2823615968" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w7-OR-ysp">
-                                <rect key="frame" x="0.0" y="88" width="414" height="404"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="461.5"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G57-8T-55o" customClass="WordSearchView" customModule="WordSearch" customModuleProvider="target">
-                                        <rect key="frame" x="52" y="47" width="310" height="310"/>
+                                        <rect key="frame" x="52" y="44.5" width="310" height="310"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="G57-8T-55o" secondAttribute="height" multiplier="1:1" id="xyp-YF-6Ow"/>
                                         </constraints>
@@ -71,14 +72,25 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="G57-8T-55o" firstAttribute="centerX" secondItem="3w7-OR-ysp" secondAttribute="centerX" id="7Ld-yp-6QA"/>
-                                    <constraint firstItem="G57-8T-55o" firstAttribute="centerY" secondItem="3w7-OR-ysp" secondAttribute="centerY" id="RR9-ab-Qdw"/>
                                     <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="52" id="hbo-Y6-sY8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-24-Teb">
-                                <rect key="frame" x="140" y="425" width="134" height="134"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="140" y="482.5" width="134" height="134"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3/6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQo-0Q-G6y">
+                                        <rect key="frame" x="40" y="46" width="54.5" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.39493257705479451" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="tQo-0Q-G6y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oZU-24-Teb" secondAttribute="top" constant="10" id="03N-a7-1uk"/>
+                                    <constraint firstItem="tQo-0Q-G6y" firstAttribute="centerX" secondItem="oZU-24-Teb" secondAttribute="centerX" id="7gy-GK-wCG"/>
+                                    <constraint firstItem="tQo-0Q-G6y" firstAttribute="centerY" secondItem="oZU-24-Teb" secondAttribute="centerY" id="PNH-tF-I2n"/>
+                                    <constraint firstItem="tQo-0Q-G6y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oZU-24-Teb" secondAttribute="leading" constant="20" id="Qpd-9v-s2A"/>
                                     <constraint firstAttribute="width" secondItem="oZU-24-Teb" secondAttribute="height" multiplier="1:1" id="yuV-9A-Lve"/>
                                 </constraints>
                             </view>
@@ -94,8 +106,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XUo-Ax-jhW" secondAttribute="trailing" id="WUg-fT-ybJ"/>
                             <constraint firstItem="oZU-24-Teb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aKb-um-yQb"/>
                             <constraint firstItem="3w7-OR-ysp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bPG-ik-w7Y"/>
+                            <constraint firstItem="oZU-24-Teb" firstAttribute="top" secondItem="G57-8T-55o" secondAttribute="bottom" constant="40" id="cXo-nw-VEQ"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="top" secondItem="3w7-OR-ysp" secondAttribute="bottom" id="kYp-iq-bgd"/>
-                            <constraint firstItem="XUo-Ax-jhW" firstAttribute="height" secondItem="3w7-OR-ysp" secondAttribute="height" id="pek-0c-TqU"/>
+                            <constraint firstItem="XUo-Ax-jhW" firstAttribute="height" secondItem="3w7-OR-ysp" secondAttribute="height" multiplier="0.75" id="pek-0c-TqU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
