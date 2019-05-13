@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // drawaLine()
+//         drawaLine()
     }
     
     func drawaLine(){
@@ -22,6 +22,8 @@ class GameViewController: UIViewController {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 5, y: 10))
         path.addLine(to: CGPoint(x: 100, y: 10))
+        path.lineJoinStyle = .round
+        path.lineCapStyle = .round
         path.close()
         
         let drawLayer = CAShapeLayer()

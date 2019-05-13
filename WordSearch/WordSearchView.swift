@@ -11,7 +11,7 @@ import UIKit
 class WordSearchView: UICollectionView, UICollectionViewDelegate {
     private var highlightedIndexPaths = [IndexPath]()
     private var startingPoint : CGPoint!
-    private var endPoint : CGPoint!
+    private var endingPoint : CGPoint!
     private var drawPath : UIBezierPath!
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -48,11 +48,11 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         
         clearCanvas()
-        endPoint = touch.location(in: self)
+        endingPoint = touch.location(in: self)
         let startX = startingPoint.x
         let startY = startingPoint.y
-        let endX = endPoint.x
-        let endY = endPoint.y
+        let endX = endingPoint.x
+        let endY = endingPoint.y
 
         let opposite = endY - startY
         let adjacent = endX - startX
@@ -62,20 +62,18 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         //Checks to see if the rounded angle is 90 degrees
         if (abs(roundedAngle * 180/Double.pi) == 90) {
-            endPoint = CGPoint(x: startingPoint.x, y: touch.location(in: self).y)
+            endingPoint = CGPoint(x: startingPoint.x, y: touch.location(in: self).y)
         }
         else{
             let newY = snapY(theta: roundedAngle, x1: Double(startX), x2: Double(endX), y1: Double(startY))
-            endPoint = CGPoint(x: endPoint.x, y: CGFloat(newY))
+            endingPoint = CGPoint(x: endingPoint.x, y: CGFloat(newY))
         }
         
         //Get the indexPath of the cell touched at the location of the tap
-        guard let indexPath = self.indexPathForItem(at: endPoint),
-            let targetCell = self.cellForItem(at: indexPath) as? LetterCell else {
+        guard let indexPath = self.indexPathForItem(at: endingPoint),
+            let _ = self.cellForItem(at: indexPath) as? LetterCell else {
                 return
         }
-        
-      //  startingPoint = calculateStartPoint(indexPath: highlightedIndexPaths[0], angle: roundedAngle)
         
         //Adds the cell's indexPath to the array of hihglighted index paths
         if (!highlightedIndexPaths.contains(indexPath)){
@@ -85,27 +83,24 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
        
         startingPoint = points.startingPoint
         if(highlightedIndexPaths.count == 1){
-            endPoint = points.endingPoint
+            endingPoint = points.endingPoint
 
         }
-//
-        //Create highlighting line path
         
+        //Create highlighting line path
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
-        drawPath.addLine(to: endPoint)
-        drawPath.lineCapStyle = .round
-        drawPath.lineJoinStyle = .round
-        drawPath.close()
-        
+        drawPath.addLine(to: endingPoint)
+    
         //Create layer for highlighting path
         let drawLayer = CAShapeLayer()
         drawLayer.name = "DrawLayer"
-        drawLayer.fillColor = UIColor.red.cgColor
         drawLayer.opacity = 0.8
         drawLayer.strokeColor = UIColor.red.cgColor
         drawLayer.lineWidth = 20
         drawLayer.path = drawPath.cgPath
+        drawLayer.lineCap = .round
+        drawLayer.lineJoin = .round
         
         //Add and update view
         self.layer.addSublayer(drawLayer)
