@@ -71,7 +71,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         //Get the indexPath of the cell touched at the location of the tap
         guard let indexPath = self.indexPathForItem(at: endingPoint),
-            let _ = self.cellForItem(at: indexPath) as? LetterCell else {
+            let cell = self.cellForItem(at: indexPath) as? LetterCell else {
                 return
         }
         
@@ -84,13 +84,13 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         startingPoint = points.startingPoint
         if(highlightedIndexPaths.count == 1){
             endingPoint = points.endingPoint
-
         }
         
         //Create highlighting line path
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
         drawPath.addLine(to: endingPoint)
+        drawPath.close()
     
         //Create layer for highlighting path
         let drawLayer = CAShapeLayer()
@@ -106,16 +106,25 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         self.layer.addSublayer(drawLayer)
         self.setNeedsLayout()
         
+//        for indexPath in highlightedIndexPaths {
+//            if let cell = self.cellForItem(at: indexPath) as? LetterCell{
+//                if (!contains(path: drawPath, points: cell.midPoints + cell.cornerPoints)){
+//                    if let index = highlightedIndexPaths.firstIndex(of: indexPath), index != 0{
+//                        print("removing: \(cell.letterLabel.text)")
+//                        highlightedIndexPaths.remove(at: index)
+//                    }
+//                }
+//
+//            }
+//        }
+        
+        var word = ""
         for indexPath in highlightedIndexPaths {
-            if let cell = self.cellForItem(at: indexPath) as? LetterCell{
-                if (!drawPath.contains(cell.center)){
-                    if let index = highlightedIndexPaths.firstIndex(of: indexPath), index != 0{
-                        highlightedIndexPaths.remove(at: index)
-                    }
-                }
-               
+            if let cell = self.cellForItem(at: indexPath) as? LetterCell {
+                word += cell.letterLabel.text ?? ""
             }
         }
+        print("Final word: \(word)")
     }
     
     
@@ -198,4 +207,94 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         return linePath
     }
+    
+    private func contains(path : UIBezierPath, points : [CGPoint]) -> Bool {
+        for point in points {
+            if (path.contains(point)){
+                return true
+            }
+        }
+        return false
+    }
+    
+    ///Neighbouring methods
+    
+    private func rightNeighbour(cell : UICollectionViewCell) -> UICollectionViewCell? {
+        guard let indexPath = self.indexPath(for: cell) else{
+            return nil
+        }
+        if (indexPath.row + 1 <= self.numberOfItems(inSection: indexPath.section)-1 && indexPath.row + 1 >= 0) {
+            let neighbourIndexPath = IndexPath(row: indexPath.row+1, section: indexPath.section)
+            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
+                return nil
+            }
+            return neighbour
+        }
+        return nil
+    }
+    
+    private func leftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        guard let indexPath = self.indexPath(for: cell) else{
+            return nil
+        }
+        if (indexPath.row - 1 <= self.numberOfItems(inSection: indexPath.section)-1 && indexPath.row - 1 >= 0) {
+            let neighbourIndexPath = IndexPath(row: indexPath.row-1, section: indexPath.section)
+            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
+                return nil
+            }
+            return neighbour
+        }
+        return nil
+    }
+    
+    private func topNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        guard let indexPath = self.indexPath(for: cell) else{
+            return nil
+        }
+        
+        if(indexPath.section - 1 <= self.numberOfSections || indexPath.section >= 0) {
+            let neighbourIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
+                return nil
+            }
+            return neighbour
+        }
+        return nil
+    }
+    
+    private func bottomNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        guard let indexPath = self.indexPath(for: cell) else {
+            return nil
+        }
+        if (indexPath.section + 1 <= self.numberOfSections-1  && indexPath.section + 1 >= 0){
+            let neighbourIndexPath = IndexPath(row: indexPath.row, section: indexPath.section+1)
+            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
+                return nil
+            }
+            return neighbour
+        }
+        return nil
+    }
+    
+    private func topRightNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        if let topNeighbour = topNeighbour(cell: cell) {
+            return rightNeighbour(cell: topNeighbour)
+        }
+        return nil
+    }
+    
+    private func topLeftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        if let topNeighbour = topNeighbour(cell: cell) {
+            return leftNeighbour(cell: topNeighbour)
+        }
+        return nil
+    }
+    
+    private func bottomRightNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        if let bottomNeighbour = bottomNeighbour(cell: cell) {
+            return rightNeighbour(cell: bottomNeighbour)
+        }
+        return nil
+    }
+    
 }
