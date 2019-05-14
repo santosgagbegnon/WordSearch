@@ -85,6 +85,24 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         if(highlightedIndexPaths.count == 1){
             endingPoint = points.endingPoint
         }
+        print("Cell: \(cell.letterLabel.text)")
+        
+        
+        let first = highlightedIndexPaths[0]
+        guard let firstCell = self.cellForItem(at: first) else{
+            print("problem")
+                return
+        }
+        
+        let theCells = cells(from: firstCell, to: cell)
+        var word = ""
+        for cell in theCells {
+            if let letterCell = cell as? LetterCell {
+                word += letterCell.letterLabel.text ?? ""
+                word += ","
+            }
+        }
+        print("Cells: \(word)")
         
         //Create highlighting line path
         drawPath = UIBezierPath()
@@ -118,24 +136,17 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
 //            }
 //        }
         
-        var word = ""
-        for indexPath in highlightedIndexPaths {
-            if let cell = self.cellForItem(at: indexPath) as? LetterCell {
-                word += cell.letterLabel.text ?? ""
-            }
-        }
-        print("Final word: \(word)")
     }
     
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         var word = ""
         for indexPath in highlightedIndexPaths {
             if let cell = self.cellForItem(at: indexPath) as? LetterCell {
                 word += cell.letterLabel.text ?? ""
             }
         }
-        print("Final word: \(word)")
         highlightedIndexPaths = []
         clearCanvas()
     }
@@ -217,6 +228,54 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         return false
     }
     
+    private func cells(from startCell: UICollectionViewCell, to endCell: UICollectionViewCell) -> [UICollectionViewCell] {
+        var cells = [UICollectionViewCell]()
+        cells.append(startCell)
+
+        guard let firstIndexPath = self.indexPath(for: startCell),
+            let lastIndexPath = self.indexPath(for: endCell) else {
+                return cells
+        }
+        
+        var currentIndexPath = firstIndexPath
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let rightNeighbour = rightNeighbour(cell: currentCell),
+                let rightIndexPath = self.indexPath(for: rightNeighbour) {
+                currentIndexPath = rightIndexPath
+                cells.append(rightNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    break
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        
+//        var previousSize = -1
+//
+//        while(previousSize == -1 || previousSize != cells.count){
+//            previousSize = 0
+//            if let rightNeighbour = rightNeighbour(cell: startCell){cells.append(rightNeighbour)}
+//            if let leftNeighbour = leftNeighbour(cell: startCell){cells.append(leftNeighbour)}
+//            if let topNeighbour = topNeighbour(cell: startCell){cells.append(topNeighbour)}
+//            if let bottomNeighbour = bottomNeighbour(cell: startCell){cells.append(bottomNeighbour)}
+//            if let topRightNeighbour = topRightNeighbour(cell: startCell){cells.append(topRightNeighbour)}
+//            if let topLeftNeighbour = topLeftNeighbour(cell: startCell){cells.append(topLeftNeighbour)}
+//            if let bottomRightNeighbour = bottomRightNeighbour(cell: startCell){cells.append(bottomRightNeighbour)}
+//            if let bottomLeftNeighbour = bottomLeftNeighbour(cell: startCell){cells.append(bottomLeftNeighbour)}
+//            previousSize = cells.count
+//        }
+
+        
+        
+        return cells
+    }
+    
+    
     ///Neighbouring methods
     
     private func rightNeighbour(cell : UICollectionViewCell) -> UICollectionViewCell? {
@@ -296,5 +355,14 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         return nil
     }
+    
+    private func bottomLeftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
+        if let bottomNeighbour = bottomNeighbour(cell: cell) {
+            return leftNeighbour(cell: bottomNeighbour)
+        }
+        return nil
+    }
+    
+    
     
 }
