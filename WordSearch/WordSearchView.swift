@@ -238,9 +238,10 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         
         var currentIndexPath = firstIndexPath
+        //Right check
         while(true){
             if let currentCell = self.cellForItem(at: currentIndexPath),
-                let rightNeighbour = rightNeighbour(cell: currentCell),
+                let rightNeighbour = self.rightNeighbour(cell: currentCell),
                 let rightIndexPath = self.indexPath(for: rightNeighbour) {
                 currentIndexPath = rightIndexPath
                 cells.append(rightNeighbour)
@@ -253,116 +254,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 break
             }
         }
-        
-        
-//        var previousSize = -1
-//
-//        while(previousSize == -1 || previousSize != cells.count){
-//            previousSize = 0
-//            if let rightNeighbour = rightNeighbour(cell: startCell){cells.append(rightNeighbour)}
-//            if let leftNeighbour = leftNeighbour(cell: startCell){cells.append(leftNeighbour)}
-//            if let topNeighbour = topNeighbour(cell: startCell){cells.append(topNeighbour)}
-//            if let bottomNeighbour = bottomNeighbour(cell: startCell){cells.append(bottomNeighbour)}
-//            if let topRightNeighbour = topRightNeighbour(cell: startCell){cells.append(topRightNeighbour)}
-//            if let topLeftNeighbour = topLeftNeighbour(cell: startCell){cells.append(topLeftNeighbour)}
-//            if let bottomRightNeighbour = bottomRightNeighbour(cell: startCell){cells.append(bottomRightNeighbour)}
-//            if let bottomLeftNeighbour = bottomLeftNeighbour(cell: startCell){cells.append(bottomLeftNeighbour)}
-//            previousSize = cells.count
-//        }
-
-        
-        
         return cells
     }
-    
-    
-    ///Neighbouring methods
-    
-    private func rightNeighbour(cell : UICollectionViewCell) -> UICollectionViewCell? {
-        guard let indexPath = self.indexPath(for: cell) else{
-            return nil
-        }
-        if (indexPath.row + 1 <= self.numberOfItems(inSection: indexPath.section)-1 && indexPath.row + 1 >= 0) {
-            let neighbourIndexPath = IndexPath(row: indexPath.row+1, section: indexPath.section)
-            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
-                return nil
-            }
-            return neighbour
-        }
-        return nil
-    }
-    
-    private func leftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        guard let indexPath = self.indexPath(for: cell) else{
-            return nil
-        }
-        if (indexPath.row - 1 <= self.numberOfItems(inSection: indexPath.section)-1 && indexPath.row - 1 >= 0) {
-            let neighbourIndexPath = IndexPath(row: indexPath.row-1, section: indexPath.section)
-            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
-                return nil
-            }
-            return neighbour
-        }
-        return nil
-    }
-    
-    private func topNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        guard let indexPath = self.indexPath(for: cell) else{
-            return nil
-        }
-        
-        if(indexPath.section - 1 <= self.numberOfSections || indexPath.section >= 0) {
-            let neighbourIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
-            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
-                return nil
-            }
-            return neighbour
-        }
-        return nil
-    }
-    
-    private func bottomNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        guard let indexPath = self.indexPath(for: cell) else {
-            return nil
-        }
-        if (indexPath.section + 1 <= self.numberOfSections-1  && indexPath.section + 1 >= 0){
-            let neighbourIndexPath = IndexPath(row: indexPath.row, section: indexPath.section+1)
-            guard let neighbour = self.cellForItem(at: neighbourIndexPath) else{
-                return nil
-            }
-            return neighbour
-        }
-        return nil
-    }
-    
-    private func topRightNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        if let topNeighbour = topNeighbour(cell: cell) {
-            return rightNeighbour(cell: topNeighbour)
-        }
-        return nil
-    }
-    
-    private func topLeftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        if let topNeighbour = topNeighbour(cell: cell) {
-            return leftNeighbour(cell: topNeighbour)
-        }
-        return nil
-    }
-    
-    private func bottomRightNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        if let bottomNeighbour = bottomNeighbour(cell: cell) {
-            return rightNeighbour(cell: bottomNeighbour)
-        }
-        return nil
-    }
-    
-    private func bottomLeftNeighbour(cell: UICollectionViewCell) -> UICollectionViewCell? {
-        if let bottomNeighbour = bottomNeighbour(cell: cell) {
-            return leftNeighbour(cell: bottomNeighbour)
-        }
-        return nil
-    }
-    
-    
     
 }
