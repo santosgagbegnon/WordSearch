@@ -10,6 +10,7 @@ import UIKit
 
 class GameViewController: UIViewController, WordSearchViewDelegate {
 
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var wordSearchGrid: WordSearchView!
     @IBOutlet var wordBankLabels:[UILabel]!
     var game : WordSearch!
@@ -53,8 +54,8 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     }
     
     func shouldRemainHightlighed(wordSearchView: WordSearchView, word: String) -> Bool {
-        if (game.words.contains(word)){
-            print("Word found:\(word)")
+        if (game.verify(word: word)){
+            scoreLabel.text = "\(game.score)/\(game.words.count)"
             return true
         }
         return false

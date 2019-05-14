@@ -173,6 +173,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="WORDSEARCH" id="UdE-Gr-NGX"/>
                     <connections>
+                        <outlet property="scoreLabel" destination="tQo-0Q-G6y" id="zNm-Sc-8e0"/>
                         <outlet property="wordSearchGrid" destination="G57-8T-55o" id="kWX-Sa-y6i"/>
                         <outletCollection property="wordBankLabels" destination="1hX-XO-ku8" collectionClass="NSMutableArray" id="aN1-Aw-spj"/>
                         <outletCollection property="wordBankLabels" destination="4eV-1u-OaV" collectionClass="NSMutableArray" id="3Zc-wV-JfU"/>

@@ -8,11 +8,14 @@
 
 import Foundation
 class WordSearch {
+    private(set) var score = 0
     private(set) var gridSize = 10
     private(set) var words : [String]
+    private(set) var wordsFound : [String]
     private(set) var grid : [[Letter]]
     
     init(words : [String]){
+        self.wordsFound = [String]()
         self.words = [String]()
         grid = [[Letter]]()
         grid = (0..<gridSize).map({ _ in
@@ -27,6 +30,7 @@ class WordSearch {
 //        fill()
         
     }
+    
     private func updateGrid(withWord word: String, locations: [(column: Int, row: Int)]){
         if (word.count != locations.count){return}
         for (index,letter) in word.enumerated() {
@@ -100,6 +104,15 @@ class WordSearch {
             print("")
         }
     }
+    func verify(word: String) -> Bool{
+        if (words.contains(word) && !wordsFound.contains(word)){
+            wordsFound.append(word)
+            score += 1
+            return true
+        }
+        return false
+    }
+    
     func printGrid(){
         for column in 0..<gridSize {
             for row in 0..<gridSize {
@@ -108,5 +121,7 @@ class WordSearch {
             print("")
         }
     }
+    
+    
     
 }
