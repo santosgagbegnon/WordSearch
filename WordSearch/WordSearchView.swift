@@ -236,9 +236,9 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             let lastIndexPath = self.indexPath(for: endCell) else {
                 return cells
         }
-        
-        var currentIndexPath = firstIndexPath
         //Right check
+        var currentIndexPath = firstIndexPath
+        
         while(true){
             if let currentCell = self.cellForItem(at: currentIndexPath),
                 let rightNeighbour = self.rightNeighbour(cell: currentCell),
@@ -246,7 +246,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 currentIndexPath = rightIndexPath
                 cells.append(rightNeighbour)
                 if(lastIndexPath == currentIndexPath){
-                    break
+                    return cells
                 }
             }
             else{
@@ -254,6 +254,138 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 break
             }
         }
+        //Left check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let leftNeighbour = self.leftNeighbour(cell: currentCell),
+                let leftIndexPath = self.indexPath(for: leftNeighbour) {
+                currentIndexPath = leftIndexPath
+                cells.append(leftNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        //Top check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let topNeighbour = self.topNeighbour(cell: currentCell),
+                let topIndexPath = self.indexPath(for: topNeighbour) {
+                currentIndexPath = topIndexPath
+                cells.append(topNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        //Bottom check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let bottomNeighbour = self.bottomNeighbour(cell: currentCell),
+                let bottomIndexPath = self.indexPath(for: bottomNeighbour) {
+                currentIndexPath = bottomIndexPath
+                cells.append(bottomNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        //Top right check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let topRightNeighbour = self.topRightNeighbour(cell: currentCell),
+                let topRightIndexPath = self.indexPath(for: topRightNeighbour) {
+                currentIndexPath = topRightIndexPath
+                cells.append(topRightNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        //Top left Check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let topLeftNeighbour = self.topLeftNeighbour(cell: currentCell),
+                let topLeftIndexPath = self.indexPath(for: topLeftNeighbour) {
+                currentIndexPath = topLeftIndexPath
+                cells.append(topLeftNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        //Bottom Right check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let bottomRightNeighbour = self.bottomRightNeighbour(cell: currentCell),
+                let bottomRightIndexPath = self.indexPath(for: bottomRightNeighbour) {
+                currentIndexPath = bottomRightIndexPath
+                cells.append(bottomRightNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
+        //Bottom Left check
+        currentIndexPath = firstIndexPath
+        cells.append(startCell)
+        while(true){
+            if let currentCell = self.cellForItem(at: currentIndexPath),
+                let bottomLeftNeighbour = self.bottomLeftNeighbour(cell: currentCell),
+                let bottomLeftIndexPath = self.indexPath(for: bottomLeftNeighbour) {
+                currentIndexPath = bottomLeftIndexPath
+                cells.append(bottomLeftNeighbour)
+                if(lastIndexPath == currentIndexPath){
+                    return cells
+                }
+            }
+            else{
+                cells = []
+                break
+            }
+        }
+        
         return cells
     }
     
