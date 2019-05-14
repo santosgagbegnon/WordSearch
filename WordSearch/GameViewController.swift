@@ -14,6 +14,8 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         wordSearchGrid.wordSearchViewDelegate = self
+        let game = WordSearch(words: ["SANTOS","JOE","KV"])
+        game.printGrid()
        // wordSearchGrid.flow
         // Do any additional setup after loading the view.
 //         drawaLine()
