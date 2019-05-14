@@ -44,9 +44,11 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(startingPoint == nil){return}
         guard let touch = touches.first else {
             return
         }
+        
         
         clearCanvas()
         endingPoint = touch.location(in: self)
@@ -103,8 +105,38 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 letters.append(letter)
             }
         }
-        self.wordSearchViewDelegate?.didHighlightWord(wordSearchView: self, letters: letters)
-        
+        if (self.wordSearchViewDelegate?.shouldRemainHightlighed(wordSearchView: self, word: letters.joined(separator: "")) == true) {
+            startingPoint = nil
+            clearCanvas()
+            if let endIndexPath = self.indexPath(for: cell){
+                let path = calculateLinePath(firstIndexPath: first, secondIndexPath: endIndexPath)
+                let startingPoint = path.startingPoint
+                let endingPoint = path.endingPoint
+                //Create highlighting line path
+                drawPath = UIBezierPath()
+                drawPath.move(to: startingPoint)
+                drawPath.addLine(to: endingPoint)
+                drawPath.close()
+                
+                //Create layer for highlighting path
+                let drawLayer = CAShapeLayer()
+                drawLayer.name = "FoundLayer"
+                drawLayer.opacity = 0.8
+                drawLayer.strokeColor = UIColor.red.cgColor
+                drawLayer.lineWidth = 20
+                drawLayer.path = drawPath.cgPath
+                drawLayer.lineCap = .round
+                drawLayer.lineJoin = .round
+                
+                //Add and update view
+                self.layer.addSublayer(drawLayer)
+                self.setNeedsLayout()
+
+            }
+            
+            //let startingPoin
+            return
+        }
         //Create highlighting line path
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)

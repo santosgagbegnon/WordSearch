@@ -24,7 +24,7 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
 //         drawaLine()
     }
     func setupGame(){
-        game = WordSearch(words: ["SANTOS", "GRAYDON", "MAX", "KALEB", "CRAX", "JOE"])
+        game = WordSearch(words: ["UZI", "KANYE", "DRAKE", "TORY", "CARTI", "NAV"])
         for (index,label) in wordBankLabels.enumerated() {
             label.text = game.words[index]
         }
@@ -52,14 +52,13 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
         wordSearchGrid.layer.addSublayer(drawLayer)
     }
     
-    func didHighlightWord(wordSearchView: WordSearchView, letters: [String]) {
-        for letter in letters {
-            print(letter, terminator: "")
+    func shouldRemainHightlighed(wordSearchView: WordSearchView, word: String) -> Bool {
+        if (game.words.contains(word)){
+            print("Word found:\(word)")
+            return true
         }
-        print("")
+        return false
     }
-    
-    
 }
 
 extension GameViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

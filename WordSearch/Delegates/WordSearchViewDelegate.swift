@@ -8,9 +8,6 @@
 
 import Foundation
 protocol WordSearchViewDelegate {
-    func didHighlightWord(wordSearchView : WordSearchView, letters : [String])
+    func shouldRemainHightlighed(wordSearchView: WordSearchView, word:String) -> Bool
 }
 
-extension WordSearchViewDelegate {
-    func didHighlightWord(wordSearchView : WordSearchView, letters : [String] ) {}
-}
