@@ -8,11 +8,12 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, WordSearchViewDelegate {
 
     @IBOutlet weak var wordSearchGrid: WordSearchView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        wordSearchGrid.wordSearchViewDelegate = self
        // wordSearchGrid.flow
         // Do any additional setup after loading the view.
 //         drawaLine()
@@ -38,6 +39,14 @@ class GameViewController: UIViewController {
         
         wordSearchGrid.layer.addSublayer(drawLayer)
     }
+    
+    func didHighlightWord(wordSearchView: WordSearchView, letters: [String]) {
+        for letter in letters {
+            print(letter, terminator: "")
+        }
+        print("")
+    }
+    
     
 }
 

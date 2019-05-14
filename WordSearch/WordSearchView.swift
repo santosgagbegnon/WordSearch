@@ -13,6 +13,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     private var startingPoint : CGPoint!
     private var endingPoint : CGPoint!
     private var drawPath : UIBezierPath!
+    var wordSearchViewDelegate : WordSearchViewDelegate? = nil
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -85,7 +86,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         if(highlightedIndexPaths.count == 1){
             endingPoint = points.endingPoint
         }
-        print("Cell: \(cell.letterLabel.text)")
+        //print("Cell: \(cell.letterLabel.text)")
         
         
         let first = highlightedIndexPaths[0]
@@ -94,15 +95,15 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 return
         }
         
-        let theCells = cellsBetween(start: firstCell, end: cell)
-        var word = ""
-        for cell in theCells {
-            if let letterCell = cell as? LetterCell {
-                word += letterCell.letterLabel.text ?? ""
-                word += ","
+        let cells = cellsBetween(start: firstCell, end: cell)
+        var letters = [String]()
+        for cell in cells {
+            if let letterCell = cell as? LetterCell,
+                let letter = letterCell.letterLabel.text{
+                letters.append(letter)
             }
         }
-        print("Cells: \(word)")
+        self.wordSearchViewDelegate?.didHighlightWord(wordSearchView: self, letters: letters)
         
         //Create highlighting line path
         drawPath = UIBezierPath()
