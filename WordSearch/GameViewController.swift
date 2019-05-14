@@ -11,6 +11,7 @@ import UIKit
 class GameViewController: UIViewController, WordSearchViewDelegate {
 
     @IBOutlet weak var wordSearchGrid: WordSearchView!
+    @IBOutlet var wordBankLabels:[UILabel]!
     var game : WordSearch!
     
     override func viewDidLoad() {
@@ -23,7 +24,10 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
 //         drawaLine()
     }
     func setupGame(){
-        game = WordSearch(words: ["SANTOS", "GRAYDON", "MAX", "KALEB"])
+        game = WordSearch(words: ["SANTOS", "GRAYDON", "MAX", "KALEB", "CRAX", "JOE"])
+        for (index,label) in wordBankLabels.enumerated() {
+            label.text = game.words[index]
+        }
         
         
     }
