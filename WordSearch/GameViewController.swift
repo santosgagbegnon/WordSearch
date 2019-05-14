@@ -11,16 +11,22 @@ import UIKit
 class GameViewController: UIViewController, WordSearchViewDelegate {
 
     @IBOutlet weak var wordSearchGrid: WordSearchView!
+    var game : WordSearch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupGame()
         wordSearchGrid.wordSearchViewDelegate = self
-        let game = WordSearch(words: ["SANTOS","JOE","KV"])
-        game.printGrid()
+        
        // wordSearchGrid.flow
         // Do any additional setup after loading the view.
 //         drawaLine()
     }
-    
+    func setupGame(){
+        game = WordSearch(words: ["SANTOS", "GRAYDON", "MAX", "KALEB"])
+        
+        
+    }
     func drawaLine(){
         print("called")
         let path = UIBezierPath()
@@ -54,17 +60,17 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
 
 extension GameViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return game.gridSize
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return game.gridSize
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? LetterCell else{
             fatalError("Could not create proper cell")
         }
-        cell.letterLabel.text = String.randomLetter()
+        cell.letterLabel.text = String(game.grid[indexPath.section][indexPath.row].value)//String.randomLetter()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

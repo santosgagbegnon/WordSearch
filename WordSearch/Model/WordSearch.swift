@@ -8,9 +8,9 @@
 
 import Foundation
 class WordSearch {
-    private var gridSize = 10
-    private var words : [String]
-    private var grid : [[Letter]]
+    private(set) var gridSize = 10
+    private(set) var words : [String]
+    private(set) var grid : [[Letter]]
     
     init(words : [String]){
         self.words = [String]()
@@ -24,7 +24,7 @@ class WordSearch {
             }
         }
         
-        //fill()
+//        fill()
         
     }
     private func updateGrid(withWord word: String, locations: [(column: Int, row: Int)]){
@@ -39,7 +39,6 @@ class WordSearch {
         }
     }
     private func place(word : String) -> Bool{
-        var wordLength = word.count
         let directions = PlacementDirection.allRandomCases
         for direction in directions {
             for column in (0..<gridSize).shuffled() {
