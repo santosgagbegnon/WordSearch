@@ -79,7 +79,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         if (!highlightedIndexPaths.contains(indexPath)){
             highlightedIndexPaths.append(indexPath)
         }
-        let points = calculateLinePath(firstIndexPath: highlightedIndexPaths[0], secondIndexPath: highlightedIndexPaths[highlightedIndexPaths.count-1])
+        let points = calculateLinePath(firstIndexPath: highlightedIndexPaths[0], secondIndexPath: indexPath)
        
         startingPoint = points.startingPoint
         if(highlightedIndexPaths.count == 1){
@@ -94,7 +94,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 return
         }
         
-        let theCells = cells(from: firstCell, to: cell)
+        let theCells = cellsBetween(start: firstCell, end: cell)
         var word = ""
         for cell in theCells {
             if let letterCell = cell as? LetterCell {
@@ -228,7 +228,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         return false
     }
     
-    private func cells(from startCell: UICollectionViewCell, to endCell: UICollectionViewCell) -> [UICollectionViewCell] {
+    private func cellsBetween(start startCell: UICollectionViewCell, end endCell: UICollectionViewCell) -> [UICollectionViewCell] {
         var cells = [UICollectionViewCell]()
         cells.append(startCell)
 
