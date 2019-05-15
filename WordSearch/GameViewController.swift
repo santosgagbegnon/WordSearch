@@ -40,7 +40,7 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     }
     
     func setupGame(){
-        game = WordSearch(words: ["UZI", "KANYE", "DRAKE", "TORY", "CARTI", "NAV"])
+        game = WordSearch(words: ["Swift", "Kotlin", "ObjectiveC", "Variable", "Java", "Mobile"])
         for (index,label) in wordBankLabels.enumerated() {
             label.text = game.words[index]
         }

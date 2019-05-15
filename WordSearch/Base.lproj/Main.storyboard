@@ -84,7 +84,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="461.5"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G57-8T-55o" customClass="WordSearchView" customModule="WordSearch" customModuleProvider="target">
-                                        <rect key="frame" x="35" y="30.5" width="344" height="344"/>
+                                        <rect key="frame" x="24.5" y="10" width="365" height="364.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="G57-8T-55o" secondAttribute="height" multiplier="1:1" id="xyp-YF-6Ow"/>
@@ -131,7 +131,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="G57-8T-55o" firstAttribute="centerX" secondItem="3w7-OR-ysp" secondAttribute="centerX" id="7Ld-yp-6QA"/>
-                                    <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="35" id="hbo-Y6-sY8"/>
+                                    <constraint firstItem="G57-8T-55o" firstAttribute="top" secondItem="3w7-OR-ysp" secondAttribute="top" constant="10" id="Cju-qu-ZNl"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-24-Teb" customClass="ScoreView" customModule="WordSearch" customModuleProvider="target">

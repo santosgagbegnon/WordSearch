@@ -22,8 +22,8 @@ class WordSearch {
             (0..<gridSize).map({ _ in Letter()})
         })
         for word in words {
-            if (place(word: word)){
-                self.words.append(word)
+            if (place(word: word.uppercased())){
+                self.words.append(word.uppercased())
             }
         }
         fill()
