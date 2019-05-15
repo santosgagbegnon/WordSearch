@@ -84,7 +84,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="461.5"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G57-8T-55o" customClass="WordSearchView" customModule="WordSearch" customModuleProvider="target">
-                                        <rect key="frame" x="52" y="44.5" width="310" height="310"/>
+                                        <rect key="frame" x="35" y="30.5" width="344" height="344"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="G57-8T-55o" secondAttribute="height" multiplier="1:1" id="xyp-YF-6Ow"/>
@@ -104,11 +104,11 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMP-UK-O4R">
-                                                            <rect key="frame" x="2" y="2" width="27" height="27"/>
+                                                            <rect key="frame" x="5" y="5" width="21.5" height="21.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="VMP-UK-O4R" secondAttribute="height" multiplier="1:1" id="RGP-ZY-lhm"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -131,7 +131,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="G57-8T-55o" firstAttribute="centerX" secondItem="3w7-OR-ysp" secondAttribute="centerX" id="7Ld-yp-6QA"/>
-                                    <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="52" id="hbo-Y6-sY8"/>
+                                    <constraint firstItem="G57-8T-55o" firstAttribute="leading" secondItem="3w7-OR-ysp" secondAttribute="leading" constant="35" id="hbo-Y6-sY8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZU-24-Teb" customClass="ScoreView" customModule="WordSearch" customModuleProvider="target">
@@ -165,7 +165,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XUo-Ax-jhW" secondAttribute="trailing" id="WUg-fT-ybJ"/>
                             <constraint firstItem="oZU-24-Teb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aKb-um-yQb"/>
                             <constraint firstItem="3w7-OR-ysp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bPG-ik-w7Y"/>
-                            <constraint firstItem="oZU-24-Teb" firstAttribute="top" secondItem="G57-8T-55o" secondAttribute="bottom" constant="40" id="cXo-nw-VEQ"/>
+                            <constraint firstItem="oZU-24-Teb" firstAttribute="top" secondItem="G57-8T-55o" secondAttribute="bottom" constant="20" id="cXo-nw-VEQ"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="top" secondItem="3w7-OR-ysp" secondAttribute="bottom" id="kYp-iq-bgd"/>
                             <constraint firstItem="XUo-Ax-jhW" firstAttribute="height" secondItem="3w7-OR-ysp" secondAttribute="height" multiplier="0.75" id="pek-0c-TqU"/>
                         </constraints>
@@ -173,7 +173,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="WORDSEARCH" id="UdE-Gr-NGX"/>
                     <connections>
+                        <outlet property="gridView" destination="3w7-OR-ysp" id="LrA-ur-UYM"/>
                         <outlet property="scoreLabel" destination="tQo-0Q-G6y" id="zNm-Sc-8e0"/>
+                        <outlet property="wordBankView" destination="XUo-Ax-jhW" id="iti-NX-2SO"/>
                         <outlet property="wordSearchGrid" destination="G57-8T-55o" id="kWX-Sa-y6i"/>
                         <outletCollection property="wordBankLabels" destination="1hX-XO-ku8" collectionClass="NSMutableArray" id="aN1-Aw-spj"/>
                         <outletCollection property="wordBankLabels" destination="4eV-1u-OaV" collectionClass="NSMutableArray" id="3Zc-wV-JfU"/>

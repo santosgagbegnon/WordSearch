@@ -7,7 +7,7 @@
 //
 
 import UIKit
-extension UICollectionViewCell {
+extension UIView {
     
     /// Calculates the four corner points of the cell in the coordinate system of its superview
     var cornerPoints : [CGPoint]{

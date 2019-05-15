@@ -14,28 +14,28 @@ extension Double {
     func round() -> Double{
         //Convert to degrees for readability
         let degree = Double(self * 180 / .pi)
-        if (degree >= 157.5){
+        if (degree >= 157){
             return 180
         }
-        else if (degree >= 112.5){
+        else if (degree >= 112){
             return 135
         }
-        else if (degree >= 67.5){
+        else if (degree >= 67){
             return 90
         }
-        else if (degree >= 22.5){
+        else if (degree >= 22){
             return 45
         }
-        else if (degree >= -22.5){
+        else if (degree >= -22){
             return 0
         }
-        else if (degree >= -67.5){
+        else if (degree >= -67){
             return -45
         }
-        else if (degree >= -112.5){
+        else if (degree >= -112){
             return -90
         }
-        else if (degree >= -157.5){
+        else if (degree >= -157){
             return -135
         }
         else{

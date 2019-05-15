@@ -26,9 +26,7 @@ class WordSearch {
                 self.words.append(word)
             }
         }
-        
-//        fill()
-        
+        fill()
     }
     
     private func updateGrid(withWord word: String, locations: [(column: Int, row: Int)]){
@@ -47,7 +45,7 @@ class WordSearch {
         for direction in directions {
             for column in (0..<gridSize).shuffled() {
                 for row in (0..<gridSize).shuffled() {
-                    if let locations = validLocations(for: word, from: (column: column, row: row), withDirection: direction){
+                    if let locations = openLocations(for: word, from: (column: column, row: row), withDirection: direction){
                         updateGrid(withWord: word, locations: locations)
                         print("placed \(word) from: (\(column),\(row)) direction:\(direction)")
                         return true
@@ -56,11 +54,10 @@ class WordSearch {
             }
         }
         return false
-        
     }
     
     //change name
-    private func validLocations(for word: String, from : (column : Int, row: Int), withDirection direction: PlacementDirection) -> [(column : Int, row: Int)]?{
+    private func openLocations(for word: String, from : (column : Int, row: Int), withDirection direction: PlacementDirection) -> [(column : Int, row: Int)]?{
         var locations = [(column: Int, row: Int)]()
         var nextColumn = from.column
         var nextRow = from.row

@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController, WordSearchViewDelegate {
 
+    @IBOutlet weak var gridView: UIView!
+    @IBOutlet weak var wordBankView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var wordSearchGrid: WordSearchView!
     @IBOutlet var wordBankLabels:[UILabel]!
@@ -17,6 +19,9 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       // gridView.backgroundColor = UIColor.blue
+        setupWordBankView()
+        setupGridView()
         setupGame()
         wordSearchGrid.wordSearchViewDelegate = self
         
@@ -24,14 +29,23 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
         // Do any additional setup after loading the view.
 //         drawaLine()
     }
+    func setupWordBankView(){
+        let startColour = UIColor(named: "WSGreen") ?? UIColor.green
+        let endColour = UIColor(named: "WSDarkGreen") ?? UIColor.green
+        wordBankView.addGradientBackground(startColour: startColour, endColour: endColour)
+    }
+    func setupGridView(){
+        gridView.addShadow()
+        gridView.backgroundColor = .white
+    }
+    
     func setupGame(){
         game = WordSearch(words: ["UZI", "KANYE", "DRAKE", "TORY", "CARTI", "NAV"])
         for (index,label) in wordBankLabels.enumerated() {
             label.text = game.words[index]
         }
-        
-        
     }
+    
     func drawaLine(){
         print("called")
         let path = UIBezierPath()
@@ -74,11 +88,8 @@ extension GameViewController : UICollectionViewDataSource, UICollectionViewDeleg
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? LetterCell else{
             fatalError("Could not create proper cell")
         }
-        cell.letterLabel.text = String(game.grid[indexPath.section][indexPath.row].value)//String.randomLetter()
+        cell.letterLabel.text = String(game.grid[indexPath.section][indexPath.row].value)
         return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Ok -")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

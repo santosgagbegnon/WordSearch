@@ -12,7 +12,7 @@ class ScoreView : UIView {
     
     override func layoutSubviews() {
         self.layer.cornerRadius = self.frame.height/2
-        self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor(displayP3Red: 30/255, green: 110/255, blue: 84/255, alpha: 1).cgColor
+        self.layer.borderWidth = 4
+        self.layer.borderColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
     }
 }

@@ -49,8 +49,6 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             return
         }
         
-        
-        clearCanvas()
         endingPoint = touch.location(in: self)
         let startX = startingPoint.x
         let startY = startingPoint.y
@@ -84,7 +82,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         let points = calculateLinePath(firstIndexPath: highlightedIndexPaths[0], secondIndexPath: indexPath)
        
-        startingPoint = points.startingPoint
+        startingPoint = points.startingPoint.contain(in: self.bounds)
         if(highlightedIndexPaths.count == 1){
             endingPoint = points.endingPoint
         }
@@ -93,7 +91,6 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         let first = highlightedIndexPaths[0]
         guard let firstCell = self.cellForItem(at: first) else{
-            print("problem")
                 return
         }
         
@@ -122,7 +119,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 let drawLayer = CAShapeLayer()
                 drawLayer.name = "FoundLayer"
                 drawLayer.opacity = 0.8
-                drawLayer.strokeColor = UIColor.red.cgColor
+                drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
                 drawLayer.lineWidth = 20
                 drawLayer.path = drawPath.cgPath
                 drawLayer.lineCap = .round
@@ -138,6 +135,11 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             return
         }
         //Create highlighting line path
+//        print("\(endingPoint) - \(self.bounds.width),\(self.bounds.height)")
+        if(endingPoint != endingPoint.contain(in: self.bounds)){
+            return
+        }
+        clearCanvas()
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
         drawPath.addLine(to: endingPoint)
@@ -147,7 +149,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         let drawLayer = CAShapeLayer()
         drawLayer.name = "DrawLayer"
         drawLayer.opacity = 0.8
-        drawLayer.strokeColor = UIColor.red.cgColor
+        drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
         drawLayer.lineWidth = 20
         drawLayer.path = drawPath.cgPath
         drawLayer.lineCap = .round
@@ -223,8 +225,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     private func calculateLinePath(firstIndexPath : IndexPath, secondIndexPath: IndexPath) -> (startingPoint: CGPoint, endingPoint: CGPoint){
         var linePath = (startingPoint: CGPoint(x: 0, y: 0), endingPoint: CGPoint(x: 0, y: 0))
        
-        guard let firstCell = self.cellForItem(at: firstIndexPath),
-            let secondCell = self.cellForItem(at: secondIndexPath) else{
+        guard let firstCell = self.cellForItem(at: firstIndexPath) as? LetterCell,
+            let secondCell = self.cellForItem(at: secondIndexPath) as? LetterCell else{
                 return linePath
         }
         //Default: assume line is diagonal
@@ -233,8 +235,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         
         if (firstIndexPath.row == secondIndexPath.row || firstIndexPath.section == secondIndexPath.section){
             //Not a diagonal line, change points
-            firstPoints = firstCell.midPoints
-            secondPoints = secondCell.midPoints
+            firstPoints =  firstCell.midPoints
+            secondPoints =  secondCell.midPoints
         }
        
         var furthestDistance : Double = 0
