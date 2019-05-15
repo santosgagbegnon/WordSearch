@@ -109,25 +109,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 let path = calculateLinePath(firstIndexPath: first, secondIndexPath: endIndexPath)
                 let startingPoint = path.startingPoint.contain(in: self.bounds)
                 let endingPoint = path.endingPoint.contain(in: self.bounds)
-                //Create highlighting line path
-                drawPath = UIBezierPath()
-                drawPath.move(to: startingPoint)
-                drawPath.addLine(to: endingPoint)
-                drawPath.close()
-                
-                //Create layer for highlighting path
-                let drawLayer = CAShapeLayer()
-                drawLayer.name = "FoundLayer"
-                drawLayer.opacity = 0.8
-                drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
-                drawLayer.lineWidth = 20
-                drawLayer.path = drawPath.cgPath
-                drawLayer.lineCap = .round
-                drawLayer.lineJoin = .round
-                
-                //Add and update view
-                self.layer.addSublayer(drawLayer)
-                self.setNeedsLayout()
+                drawPath(from: startingPoint, to: endingPoint, layerName: "FoundLayer")
 
             }
             
@@ -140,24 +122,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             return
         }
         clearCanvas()
-        drawPath = UIBezierPath()
-        drawPath.move(to: startingPoint)
-        drawPath.addLine(to: endingPoint)
-        drawPath.close()
-    
-        //Create layer for highlighting path
-        let drawLayer = CAShapeLayer()
-        drawLayer.name = "DrawLayer"
-        drawLayer.opacity = 0.8
-        drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
-        drawLayer.lineWidth = 20
-        drawLayer.path = drawPath.cgPath
-        drawLayer.lineCap = .round
-        drawLayer.lineJoin = .round
-        
-        //Add and update view
-        self.layer.addSublayer(drawLayer)
-        self.setNeedsLayout()
+        drawPath(from: startingPoint, to: endingPoint, layerName: "DrawLayer")
         
 //        for indexPath in highlightedIndexPaths {
 //            if let cell = self.cellForItem(at: indexPath) as? LetterCell{
@@ -184,6 +149,27 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         highlightedIndexPaths = []
         clearCanvas()
+    }
+    
+    private func drawPath(from startingPoint: CGPoint, to endingPoint: CGPoint, layerName : String?){
+        drawPath = UIBezierPath()
+        drawPath.move(to: startingPoint)
+        drawPath.addLine(to: endingPoint)
+        drawPath.close()
+        
+        //Create layer for highlighting path
+        let drawLayer = CAShapeLayer()
+        drawLayer.name = layerName
+        drawLayer.opacity = 0.8
+        drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
+        drawLayer.lineWidth = 20
+        drawLayer.path = drawPath.cgPath
+        drawLayer.lineCap = .round
+        drawLayer.lineJoin = .round
+        
+        //Add and update view
+        self.layer.addSublayer(drawLayer)
+        self.setNeedsLayout()
     }
     
     /// Clears the highlighting path on the word search
