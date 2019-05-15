@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum PlacementDirection : CaseIterable {
     case leftRight
     case rightLeft
@@ -22,6 +23,8 @@ enum PlacementDirection : CaseIterable {
         return directions.shuffled()
     }
     
+    
+    /// Calculates the direction of travel according to the case
     var direction : (column: Int, row: Int){
         switch self {
         case .leftRight:

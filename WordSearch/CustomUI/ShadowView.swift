@@ -9,11 +9,9 @@
 import UIKit
 
 class ShadowView: UIView {
-
     override func layoutSubviews() {
         super.layoutSubviews()
         self.addShadow()
         self.backgroundColor = UIColor.white
     }
-
 }

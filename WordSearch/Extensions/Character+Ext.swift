@@ -8,6 +8,10 @@
 
 import Foundation
 extension Character {
+    
+    /// Returns a random letter
+    ///
+    /// - Returns: a random letter
     static func randomLetter() -> Character{
         let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         return letters.randomElement() ?? "A"

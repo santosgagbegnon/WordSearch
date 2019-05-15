@@ -14,6 +14,9 @@ class WordSearch {
     private(set) var wordsFound : [String]
     private(set) var grid : [[Letter]]
     
+    /// creates a WordSearch
+    ///
+    /// - Parameter words: target words of the WordSearch
     init(words : [String]){
         self.wordsFound = [String]()
         self.words = [String]()
@@ -120,7 +123,6 @@ class WordSearch {
         }
         return false
     }
-    
     
     /// Prints word search grid
     func printGrid(){

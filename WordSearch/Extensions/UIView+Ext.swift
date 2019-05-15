@@ -17,6 +17,7 @@ extension UIView {
         return [topLeft, topRight, bottomLeft, bottomRight]
     }
     
+    /// Calculates the four mid points of the cell in the coordinate system of its superview
     var midPoints : [CGPoint] {
         let topMid = CGPoint(x: self.frame.midX, y: self.frame.maxY)
         let rightMid = CGPoint(x: self.frame.maxX, y: self.frame.midY)
@@ -25,6 +26,13 @@ extension UIView {
         return [topMid, rightMid, bottomMid, leftMid]
     }
     
+    
+    /// Adds a gradient to the view
+    ///
+    /// - Parameters:
+    ///   - startColour: first colour of the gradient
+    ///   - endColour: second colour of the gradient
+    ///   - locations: locations of the gradient path
     func addGradientBackground(startColour: UIColor, endColour: UIColor, locations: [NSNumber] = [0,0.95]){
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.bounds
@@ -34,6 +42,14 @@ extension UIView {
         self.setNeedsDisplay()
     }
     
+    
+    /// Adds a shadow to the view
+    ///
+    /// - Parameters:
+    ///   - colour: colour of the shadow
+    ///   - offset: offset of the shadow
+    ///   - radius: radius of the shadow
+    ///   - opacity: opacity of the shadow
     func addShadow(colour: UIColor = UIColor.black,offset: CGSize = CGSize(width: 0, height: 2), radius: CGFloat = 3, opacity: Float = 0.5){
         self.layer.shadowColor = colour.cgColor
         self.layer.shadowOffset = offset
