@@ -12,7 +12,7 @@ extension CGPoint {
         return Double(pow((secondPoint.x - self.x), 2) + pow((secondPoint.y - self.y), 2))
     }
     
-    func contain(in rect: CGRect, inset: CGFloat = 10) -> CGPoint{
+    func contain(in rect: CGRect, inset: CGFloat = 16) -> CGPoint{
         var newPoint = self
         if(self.x <= inset){
             newPoint.x = inset

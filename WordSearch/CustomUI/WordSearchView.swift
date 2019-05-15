@@ -154,7 +154,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     private func drawPath(from startingPoint: CGPoint, to endingPoint: CGPoint, layerName : String?){
         var lineWidth = CGFloat(20)
         if let cell = self.cellForItem(at: IndexPath(row: 0, section: 0)) as? LetterCell {
-            lineWidth = cell.letterLabel.frame.width
+            lineWidth = cell.letterLabel.frame.width + 2
+
         }
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
@@ -220,19 +221,22 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
                 return linePath
         }
         //Default: assume line is diagonal
-        var firstPoints = firstCell.cornerPoints
-        var secondPoints = secondCell.cornerPoints
+        var firstPoints = firstCell.letterLabel.cornerPoints
+        var secondPoints = secondCell.letterLabel.cornerPoints
         
         if (firstIndexPath.row == secondIndexPath.row || firstIndexPath.section == secondIndexPath.section){
             //Not a diagonal line, change points
-            firstPoints =  firstCell.midPoints
-            secondPoints =  secondCell.midPoints
+            firstPoints =  firstCell.letterLabel.midPoints
+            secondPoints =  secondCell.letterLabel.midPoints
         }
        
         var furthestDistance : Double = 0
        
-        for point1 in firstPoints {
-            for point2 in secondPoints {
+        for p1 in firstPoints {
+            for p2 in secondPoints {
+                let point1 = firstCell.convert(p1.contain(in: firstCell.frame), to: self).contain(in: self.frame)
+                let point2 = secondCell.convert(p2.contain(in: firstCell.frame), to: self).contain(in: self.frame)
+
                 let distance = point1.distance(from: point2)
                 if (distance >= furthestDistance){
                     furthestDistance = distance
