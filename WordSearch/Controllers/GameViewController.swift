@@ -19,24 +19,15 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // gridView.backgroundColor = UIColor.blue
         setupWordBankView()
-        //setupGridView()
         setupGame()
         wordSearchGrid.wordSearchViewDelegate = self
-        
-       // wordSearchGrid.flow
-        // Do any additional setup after loading the view.
-//         drawaLine()
+
     }
     func setupWordBankView(){
         let startColour = UIColor(named: "WSGreen") ?? UIColor.green
         let endColour = UIColor(named: "WSDarkGreen") ?? UIColor.green
         wordBankView.addGradientBackground(startColour: startColour, endColour: endColour)
-    }
-    func setupGridView(){
-        gridView.addShadow()
-        gridView.backgroundColor = .white
     }
     
     func setupGame(){
@@ -45,28 +36,7 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
             label.text = game.words[index]
         }
     }
-    
-    func drawaLine(){
-        print("called")
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 5, y: 10))
-        path.addLine(to: CGPoint(x: 100, y: 10))
-        path.lineJoinStyle = .round
-        path.lineCapStyle = .round
-        path.close()
-        
-        let drawLayer = CAShapeLayer()
-        drawLayer.frame = wordSearchGrid.bounds
-        drawLayer.cornerRadius = 10
-        drawLayer.fillColor = UIColor.red.cgColor
-        drawLayer.opacity = 0.8
-        drawLayer.strokeColor = UIColor.red.cgColor
-        drawLayer.lineWidth = 32
-        drawLayer.path = path.cgPath
-        
-        wordSearchGrid.layer.addSublayer(drawLayer)
-    }
-    
+    ///WordSearchViewDelegate Methods
     func shouldRemainHightlighed(wordSearchView: WordSearchView, word: String) -> Bool {
         if (game.verify(word: word)){
             for label in wordBankLabels {
@@ -93,7 +63,7 @@ extension GameViewController : UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SquareCell", for: indexPath) as? LetterCell else{
-            fatalError("Could not create proper cell")
+            fatalError("Could not create LetterCell cell")
         }
         cell.letterLabel.text = String(game.grid[indexPath.section][indexPath.row].value)
         return cell

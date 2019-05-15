@@ -23,10 +23,6 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         guard let touch = touches.first else {
@@ -50,6 +46,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         }
         
         endingPoint = touch.location(in: self)
+        
+        //Calculate the user's drawing angle
         let startX = startingPoint.x
         let startY = startingPoint.y
         let endX = endingPoint.x
@@ -70,9 +68,9 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             endingPoint = CGPoint(x: endingPoint.x, y: CGFloat(newY))
         }
         
-        //Get the indexPath of the cell touched at the location of the tap
+        //Get the indexPath of the cell touched at the location of the moved touch
         guard let indexPath = self.indexPathForItem(at: endingPoint),
-            let cell = self.cellForItem(at: indexPath) as? LetterCell else {
+            let currentCell = self.cellForItem(at: indexPath) as? LetterCell else {
                 return
         }
         
@@ -86,15 +84,13 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         if(highlightedIndexPaths.count == 1){
             endingPoint = points.endingPoint
         }
-        //print("Cell: \(cell.letterLabel.text)")
         
-        
-        let first = highlightedIndexPaths[0]
-        guard let firstCell = self.cellForItem(at: first) else{
+        let firstIndexPath = highlightedIndexPaths[0]
+        guard let firstCell = self.cellForItem(at: firstIndexPath) else{
                 return
         }
         
-        let cells = cellsBetween(start: firstCell, end: cell)
+        let cells = cellsBetween(start: firstCell, end: currentCell)
         var letters = [String]()
         for cell in cells {
             if let letterCell = cell as? LetterCell,
@@ -105,42 +101,22 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         if (self.wordSearchViewDelegate?.shouldRemainHightlighed(wordSearchView: self, word: letters.joined(separator: "")) == true) {
             startingPoint = nil
             clearCanvas()
-            if let endIndexPath = self.indexPath(for: cell){
-                let path = calculateLinePath(firstIndexPath: first, secondIndexPath: endIndexPath)
+            if let endIndexPath = self.indexPath(for: currentCell){
+                let path = calculateLinePath(firstIndexPath: firstIndexPath, secondIndexPath: endIndexPath)
                 let startingPoint = path.startingPoint.contain(in: self.bounds)
                 let endingPoint = path.endingPoint.contain(in: self.bounds)
                 drawPath(from: startingPoint, to: endingPoint, layerName: "FoundLayer")
-
             }
-            
-            //let startingPoin
             return
         }
-        //Create highlighting line path
-//        print("\(endingPoint) - \(self.bounds.width),\(self.bounds.height)")
         if(endingPoint != endingPoint.contain(in: self.bounds)){
             return
         }
         clearCanvas()
         drawPath(from: startingPoint, to: endingPoint, layerName: "DrawLayer")
-        
-//        for indexPath in highlightedIndexPaths {
-//            if let cell = self.cellForItem(at: indexPath) as? LetterCell{
-//                if (!contains(path: drawPath, points: cell.midPoints + cell.cornerPoints)){
-//                    if let index = highlightedIndexPaths.firstIndex(of: indexPath), index != 0{
-//                        print("removing: \(cell.letterLabel.text)")
-//                        highlightedIndexPaths.remove(at: index)
-//                    }
-//                }
-//
-//            }
-//        }
-        
     }
     
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         var word = ""
         for indexPath in highlightedIndexPaths {
             if let cell = self.cellForItem(at: indexPath) as? LetterCell {
@@ -151,6 +127,13 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         clearCanvas()
     }
     
+    
+    /// Draws a bezier path on the collection view
+    ///
+    /// - Parameters:
+    ///   - startingPoint: the starting point of the path
+    ///   - endingPoint: the ending point of the path
+    ///   - layerName: name of the path's layer
     private func drawPath(from startingPoint: CGPoint, to endingPoint: CGPoint, layerName : String?){
         var lineWidth = CGFloat(20)
         if let cell = self.cellForItem(at: IndexPath(row: 0, section: 0)) as? LetterCell {
@@ -246,176 +229,6 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             }
         }
         return linePath
-    }
-    
-    private func contains(path : UIBezierPath, points : [CGPoint]) -> Bool {
-        for point in points {
-            if (path.contains(point)){
-                return true
-            }
-        }
-        return false
-    }
-    
-    private func cellsBetween(start startCell: UICollectionViewCell, end endCell: UICollectionViewCell) -> [UICollectionViewCell] {
-        var cells = [UICollectionViewCell]()
-        cells.append(startCell)
-
-        guard let firstIndexPath = self.indexPath(for: startCell),
-            let lastIndexPath = self.indexPath(for: endCell) else {
-                return cells
-        }
-        //Right check
-        var currentIndexPath = firstIndexPath
-        
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let rightNeighbour = self.rightNeighbour(cell: currentCell),
-                let rightIndexPath = self.indexPath(for: rightNeighbour) {
-                currentIndexPath = rightIndexPath
-                cells.append(rightNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        //Left check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let leftNeighbour = self.leftNeighbour(cell: currentCell),
-                let leftIndexPath = self.indexPath(for: leftNeighbour) {
-                currentIndexPath = leftIndexPath
-                cells.append(leftNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        //Top check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let topNeighbour = self.topNeighbour(cell: currentCell),
-                let topIndexPath = self.indexPath(for: topNeighbour) {
-                currentIndexPath = topIndexPath
-                cells.append(topNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        //Bottom check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let bottomNeighbour = self.bottomNeighbour(cell: currentCell),
-                let bottomIndexPath = self.indexPath(for: bottomNeighbour) {
-                currentIndexPath = bottomIndexPath
-                cells.append(bottomNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        //Top right check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let topRightNeighbour = self.topRightNeighbour(cell: currentCell),
-                let topRightIndexPath = self.indexPath(for: topRightNeighbour) {
-                currentIndexPath = topRightIndexPath
-                cells.append(topRightNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        //Top left Check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let topLeftNeighbour = self.topLeftNeighbour(cell: currentCell),
-                let topLeftIndexPath = self.indexPath(for: topLeftNeighbour) {
-                currentIndexPath = topLeftIndexPath
-                cells.append(topLeftNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        //Bottom Right check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let bottomRightNeighbour = self.bottomRightNeighbour(cell: currentCell),
-                let bottomRightIndexPath = self.indexPath(for: bottomRightNeighbour) {
-                currentIndexPath = bottomRightIndexPath
-                cells.append(bottomRightNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        //Bottom Left check
-        currentIndexPath = firstIndexPath
-        cells.append(startCell)
-        while(true){
-            if let currentCell = self.cellForItem(at: currentIndexPath),
-                let bottomLeftNeighbour = self.bottomLeftNeighbour(cell: currentCell),
-                let bottomLeftIndexPath = self.indexPath(for: bottomLeftNeighbour) {
-                currentIndexPath = bottomLeftIndexPath
-                cells.append(bottomLeftNeighbour)
-                if(lastIndexPath == currentIndexPath){
-                    return cells
-                }
-            }
-            else{
-                cells = []
-                break
-            }
-        }
-        
-        return cells
     }
     
 }

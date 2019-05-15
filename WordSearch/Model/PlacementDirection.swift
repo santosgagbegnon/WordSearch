@@ -18,7 +18,7 @@ enum PlacementDirection : CaseIterable {
     case bottomRightTopLeft
     
     static var allRandomCases : [PlacementDirection] {
-        var directions : [PlacementDirection] = [.leftRight, .rightLeft, .bottomTop, .topBottom, .topLeftBottomRight, .topRightBottomLeft, .bottomLeftTopRight, .bottomRightTopLeft ]
+        let directions : [PlacementDirection] = [.leftRight, .rightLeft, .bottomTop, .topBottom, .topLeftBottomRight, .topRightBottomLeft, .bottomLeftTopRight, .bottomRightTopLeft ]
         return directions.shuffled()
     }
     

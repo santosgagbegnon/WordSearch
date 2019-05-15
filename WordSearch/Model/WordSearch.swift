@@ -29,17 +29,26 @@ class WordSearch {
         fill()
     }
     
+    
+    /// Adds the given word at the given location to the grid
+    ///
+    /// - Parameters:
+    ///   - word: word to add
+    ///   - locations: the locations to place the letters of the word at
     private func updateGrid(withWord word: String, locations: [(column: Int, row: Int)]){
         if (word.count != locations.count){return}
         for (index,letter) in word.enumerated() {
             if (locations[index].column >= 0 && locations[index].column < gridSize && locations[index].row >= 0 && locations[index].row < gridSize ){
                 grid[locations[index].column][locations[index].row].value = letter
             }
-            else{
-                print("Invalid location(s) provided for: \(word)")
-            }
         }
     }
+    
+    
+    /// Attempts to place the word given on the grid
+    ///
+    /// - Parameter word: word to place
+    /// - Returns: true if the word is placed, false if the word is not placed
     private func place(word : String) -> Bool{
         let directions = PlacementDirection.allRandomCases
         for direction in directions {
@@ -47,7 +56,6 @@ class WordSearch {
                 for row in (0..<gridSize).shuffled() {
                     if let locations = openLocations(for: word, from: (column: column, row: row), withDirection: direction){
                         updateGrid(withWord: word, locations: locations)
-                        print("placed \(word) from: (\(column),\(row)) direction:\(direction)")
                         return true
                     }
                 }
@@ -56,7 +64,13 @@ class WordSearch {
         return false
     }
     
-    //change name
+    /// Finds the open locations for a word in a given direction. Open is defined as being either the location is occupied by the same letter or the location has no letter in it.
+    ///
+    /// - Parameters:
+    ///   - word: word to find an open location for
+    ///   - from: starting point
+    ///   - direction: direction of which the method will try and place word in
+    /// - Returns: an array of locations if possible, otherwise nil
     private func openLocations(for word: String, from : (column : Int, row: Int), withDirection direction: PlacementDirection) -> [(column : Int, row: Int)]?{
         var locations = [(column: Int, row: Int)]()
         var nextColumn = from.column
@@ -73,24 +87,16 @@ class WordSearch {
             else{
                 return nil
             }
-            print(direction.direction.column)
-            print(direction.direction.row)
-
+    
             nextColumn = nextColumn + direction.direction.column
             nextRow = nextRow + direction.direction.row
         }
         
-        for location in locations {
-            print("\(word) - (\(location.column),\(location.row)")
-        }
         return locations
-        
     }
-    /**
-     Give me word and i will return where it fits
-     Give me direction and length, i will tell you if it's a valid path
-     Give me a position and
-    */
+   
+    
+    /// Fills any empty spots in the grid with the place holder '*'
     private func fill(){
         for column in 0..<gridSize {
             for row in 0..<gridSize {
@@ -98,9 +104,13 @@ class WordSearch {
                     grid[column][row].value = Character.randomLetter()
                 }
             }
-            print("")
         }
     }
+    
+    /// Verifies that a word is part of the word search
+    ///
+    /// - Parameter word: word to verify
+    /// - Returns: true if the word is a target, false if not
     func verify(word: String) -> Bool{
         let reversedWord = String(word.reversed())
         if ((words.contains(word) && !wordsFound.contains(word)) || (words.contains(reversedWord) && !wordsFound.contains(reversedWord))){
@@ -111,6 +121,8 @@ class WordSearch {
         return false
     }
     
+    
+    /// Prints word search grid
     func printGrid(){
         for column in 0..<gridSize {
             for row in 0..<gridSize {
@@ -119,7 +131,5 @@ class WordSearch {
             print("")
         }
     }
-    
-    
     
 }
