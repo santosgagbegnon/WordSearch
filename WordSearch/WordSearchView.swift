@@ -107,8 +107,8 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
             clearCanvas()
             if let endIndexPath = self.indexPath(for: cell){
                 let path = calculateLinePath(firstIndexPath: first, secondIndexPath: endIndexPath)
-                let startingPoint = path.startingPoint
-                let endingPoint = path.endingPoint
+                let startingPoint = path.startingPoint.contain(in: self.bounds)
+                let endingPoint = path.endingPoint.contain(in: self.bounds)
                 //Create highlighting line path
                 drawPath = UIBezierPath()
                 drawPath.move(to: startingPoint)
