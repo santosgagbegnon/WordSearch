@@ -70,7 +70,7 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
     func shouldRemainHightlighed(wordSearchView: WordSearchView, word: String) -> Bool {
         if (game.verify(word: word)){
             for label in wordBankLabels {
-                if label.text?.lowercased() == word.lowercased() {
+                if label.text?.lowercased() == word.lowercased() || label.text?.lowercased() == String(word.lowercased().reversed()){
                     UIView.animate(withDuration: 0.5) {
                         label.alpha = 0
                     }

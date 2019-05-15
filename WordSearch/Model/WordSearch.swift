@@ -103,7 +103,7 @@ class WordSearch {
     }
     func verify(word: String) -> Bool{
         let reversedWord = String(word.reversed())
-        if (words.contains(word) && !wordsFound.contains(word) || words.contains(reversedWord) && !wordsFound.contains(reversedWord)){
+        if ((words.contains(word) && !wordsFound.contains(word)) || (words.contains(reversedWord) && !wordsFound.contains(reversedWord))){
             wordsFound.append(word)
             score += 1
             return true

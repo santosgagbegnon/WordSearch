@@ -152,6 +152,10 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
     }
     
     private func drawPath(from startingPoint: CGPoint, to endingPoint: CGPoint, layerName : String?){
+        var lineWidth = CGFloat(20)
+        if let cell = self.cellForItem(at: IndexPath(row: 0, section: 0)) as? LetterCell {
+            lineWidth = cell.letterLabel.frame.width
+        }
         drawPath = UIBezierPath()
         drawPath.move(to: startingPoint)
         drawPath.addLine(to: endingPoint)
@@ -162,7 +166,7 @@ class WordSearchView: UICollectionView, UICollectionViewDelegate {
         drawLayer.name = layerName
         drawLayer.opacity = 0.8
         drawLayer.strokeColor = UIColor(named: "WSGreen")?.cgColor ?? UIColor.green.cgColor
-        drawLayer.lineWidth = 20
+        drawLayer.lineWidth = lineWidth
         drawLayer.path = drawPath.cgPath
         drawLayer.lineCap = .round
         drawLayer.lineJoin = .round
