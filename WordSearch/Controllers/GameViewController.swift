@@ -21,7 +21,7 @@ class GameViewController: UIViewController, WordSearchViewDelegate {
         super.viewDidLoad()
        // gridView.backgroundColor = UIColor.blue
         setupWordBankView()
-        setupGridView()
+        //setupGridView()
         setupGame()
         wordSearchGrid.wordSearchViewDelegate = self
         

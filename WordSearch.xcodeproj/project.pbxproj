@@ -24,9 +24,9 @@
 		6B81F2CA227E00530076D77F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B81F2C9227E00530076D77F /* Assets.xcassets */; };
 		6B81F2CD227E00530076D77F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B81F2CB227E00530076D77F /* LaunchScreen.storyboard */; };
 		6B81F2D5227E05F20076D77F /* LetterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B81F2D4227E05F20076D77F /* LetterCell.swift */; };
-		6B89AE802288A73300AEE3DF /* UICollectionViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */; };
+		6B89AE802288A73300AEE3DF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B89AE7F2288A73300AEE3DF /* UIView+Ext.swift */; };
 		6B89AE822288A7AA00AEE3DF /* CGPoint+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */; };
-		6BC4E31D228B901B00F6597A /* UIStyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC4E31C228B901B00F6597A /* UIStyledView.swift */; };
+		6BC4E31F228C146700F6597A /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC4E31E228C146700F6597A /* ShadowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,9 +49,9 @@
 		6B81F2CC227E00530076D77F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B81F2CE227E00530076D77F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B81F2D4227E05F20076D77F /* LetterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterCell.swift; sourceTree = "<group>"; };
-		6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Ext.swift"; sourceTree = "<group>"; };
+		6B89AE7F2288A73300AEE3DF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Ext.swift"; sourceTree = "<group>"; };
-		6BC4E31C228B901B00F6597A /* UIStyledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyledView.swift; sourceTree = "<group>"; };
+		6BC4E31E228C146700F6597A /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				6B1E54E22287CA1B00CCC35E /* String+Ext.swift */,
-				6B89AE7F2288A73300AEE3DF /* UICollectionViewCell+Ext.swift */,
+				6B89AE7F2288A73300AEE3DF /* UIView+Ext.swift */,
 				6B220E76228ADC4C009603F6 /* UICollectionView+Ext.swift */,
 				6B1E54E42287D16200CCC35E /* Double+Ext.swift */,
 				6B89AE812288A7AA00AEE3DF /* CGPoint+Ext.swift */,
@@ -115,22 +115,38 @@
 		6B81F2BE227E00510076D77F /* WordSearch */ = {
 			isa = PBXGroup;
 			children = (
+				6BC4E321228C152D00F6597A /* Controllers */,
+				6BC4E320228C151600F6597A /* CustomUI */,
 				6B220E7C228AECDE009603F6 /* Model */,
 				6B220E7B228AECD1009603F6 /* Delegates */,
 				6B220E7A228AEC8B009603F6 /* Extensions */,
 				6B81F2BF227E00510076D77F /* AppDelegate.swift */,
-				6B81F2C1227E00510076D77F /* GameViewController.swift */,
 				6B81F2C3227E00510076D77F /* Main.storyboard */,
-				6B6BF5402289CFBA00968AA7 /* ScoreView.swift */,
-				6B81F2D4227E05F20076D77F /* LetterCell.swift */,
-				6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */,
-				6BC4E31C228B901B00F6597A /* UIStyledView.swift */,
 				6B81F2C9227E00530076D77F /* Assets.xcassets */,
 				6B81F2CB227E00530076D77F /* LaunchScreen.storyboard */,
 				6B81F2CE227E00530076D77F /* Info.plist */,
 				6B81F2C6227E00510076D77F /* WordSearch.xcdatamodeld */,
 			);
 			path = WordSearch;
+			sourceTree = "<group>";
+		};
+		6BC4E320228C151600F6597A /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				6B3E2C6D227F3E440076FDEE /* WordSearchView.swift */,
+				6B81F2D4227E05F20076D77F /* LetterCell.swift */,
+				6B6BF5402289CFBA00968AA7 /* ScoreView.swift */,
+				6BC4E31E228C146700F6597A /* ShadowView.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		6BC4E321228C152D00F6597A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6B81F2C1227E00510076D77F /* GameViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +223,7 @@
 				6B1E54E32287CA1B00CCC35E /* String+Ext.swift in Sources */,
 				6B220E80228AF0F4009603F6 /* WordSearch.swift in Sources */,
 				6B81F2D5227E05F20076D77F /* LetterCell.swift in Sources */,
-				6B89AE802288A73300AEE3DF /* UICollectionViewCell+Ext.swift in Sources */,
+				6B89AE802288A73300AEE3DF /* UIView+Ext.swift in Sources */,
 				6B220E79228AE077009603F6 /* WordSearchViewDelegate.swift in Sources */,
 				6B81F2C2227E00510076D77F /* GameViewController.swift in Sources */,
 				6B3E2C6E227F3E440076FDEE /* WordSearchView.swift in Sources */,
@@ -216,10 +232,10 @@
 				6B1E54E52287D16200CCC35E /* Double+Ext.swift in Sources */,
 				6B220E7E228AED13009603F6 /* PlacementDirection.swift in Sources */,
 				6B81F2C8227E00510076D77F /* WordSearch.xcdatamodeld in Sources */,
-				6BC4E31D228B901B00F6597A /* UIStyledView.swift in Sources */,
 				6B89AE822288A7AA00AEE3DF /* CGPoint+Ext.swift in Sources */,
 				6B220E82228AF104009603F6 /* Letter.swift in Sources */,
 				6B81F2C0227E00510076D77F /* AppDelegate.swift in Sources */,
+				6BC4E31F228C146700F6597A /* ShadowView.swift in Sources */,
 				6B6BF5412289CFBA00968AA7 /* ScoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

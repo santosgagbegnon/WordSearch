@@ -80,7 +80,7 @@
                                     <constraint firstItem="Hz3-d5-8tJ" firstAttribute="centerY" secondItem="XUo-Ax-jhW" secondAttribute="centerY" id="tlg-hO-1w7"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w7-OR-ysp">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w7-OR-ysp" customClass="ShadowView" customModule="WordSearch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="461.5"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G57-8T-55o" customClass="WordSearchView" customModule="WordSearch" customModuleProvider="target">

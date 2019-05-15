@@ -8,7 +8,6 @@
 
 import UIKit
 extension UIView {
-    
     /// Calculates the four corner points of the cell in the coordinate system of its superview
     var cornerPoints : [CGPoint]{
         let topLeft = CGPoint(x: self.frame.minX, y: self.frame.maxY)
@@ -24,5 +23,23 @@ extension UIView {
         let bottomMid = CGPoint(x: self.frame.midX, y: self.frame.minY)
         let leftMid = CGPoint(x: self.frame.minX, y: self.frame.midY)
         return [topMid, rightMid, bottomMid, leftMid]
+    }
+    
+    func addGradientBackground(startColour: UIColor, endColour: UIColor, locations: [NSNumber] = [0,0.95]){
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = [startColour.cgColor,endColour.cgColor]
+        gradientLayer.locations = locations
+        self.layer.insertSublayer(gradientLayer, at: 0)
+        self.setNeedsDisplay()
+    }
+    
+    func addShadow(colour: UIColor = UIColor.black,offset: CGSize = CGSize(width: 0, height: 2), radius: CGFloat = 3, opacity: Float = 0.5){
+        self.layer.shadowColor = colour.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowRadius = 10
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.masksToBounds = false
     }
 }
